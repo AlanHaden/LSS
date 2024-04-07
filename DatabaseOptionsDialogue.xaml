@@ -1,0 +1,24 @@
+﻿<Window x:Class="LSS.DatabaseOptionsDialogue"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:LSS"
+        mc:Ignorable="d"
+        Title="Database Backup / Restore" Height="450" Width="800">
+    <Grid>
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+            <TextBlock Text="Select the databases to backup/restore:"
+                       FontWeight="Bold" Margin="0,0,0,10" 
+                       HorizontalAlignment="Center"/>
+            <GroupBox Header="Databases" Padding="10">
+                <StackPanel>
+                    <CheckBox x:Name="pdb" Content="Product Database"/>
+                    <CheckBox x:Name="edb" Content="Engineers Database"/>
+                </StackPanel>
+            </GroupBox>
+            <Button Content="Submit" Width="100" Margin="10" 
+                    HorizontalAlignment="Center" Click="SubmitButton_Click"/>
+        </StackPanel>
+    </Grid>
+</Window>
