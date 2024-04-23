@@ -15,15 +15,8 @@ using System.IO.IsolatedStorage;
 using Microsoft.Win32;
 using System.Reflection;
 using System.Globalization;
-using System.Windows.Data;
-using System.Runtime.InteropServices.ComTypes;
 using System.Linq;
-using PdfSharp.Drawing;
-using System.Windows.Media.Media3D;
-using System.Diagnostics.Eventing.Reader;
-using System.Text;
-using System.Threading;
-using System.Security.Cryptography;
+
 
 namespace LSS
 {
@@ -2609,29 +2602,128 @@ namespace LSS
                 LogErrorToFile("BAK file contents = " + logicalMdfName + " and " + logicalLdfName);
 
                 // Perform the restore
-                string restoreSQL = $"RESTORE DATABASE [{dbNameToRestore}] " +
-                                    $"FROM DISK = '{backupFilePath}' " +
-                                    $"WITH MOVE '{logicalMdfName}' TO '{mdfFilePath}', " +
-                                    $"MOVE '{logicalLdfName}' TO '{ldfFilePath}', " +
-                                    "REPLACE";
-                using (SqlCommand cmd = new SqlCommand(restoreSQL, conn))
-                {
-                    cmd.ExecuteNonQuery();
-                }
+                //string restoreSQL = $"RESTORE DATABASE [{dbNameToRestore}] " +
+                //                    $"FROM DISK = '{backupFilePath}' " +
+                //                    $"WITH MOVE '{logicalMdfName}' TO '{mdfFilePath}', " +
+                //                    $"MOVE '{logicalLdfName}' TO '{ldfFilePath}', " +
+                //                    "REPLACE";
+                //using (SqlCommand cmd = new SqlCommand(restoreSQL, conn))
+                //{
+                //    cmd.ExecuteNonQuery();
+                //}
             }
         }
 
 
         private void btnRestore_Click(object sender, RoutedEventArgs e)
         {
-            var result = MessageBox.Show("Do you want to start the restore process the next time you start the application? Selecting 'Yes' will set the application to restore mode on next startup.",
-        "Restore on Next Startup", MessageBoxButton.YesNo, MessageBoxImage.Question);
-            if (result == MessageBoxResult.Yes)
+            //MessageBox.Show("This feature is currently unavailable");
+            string SelectBackupFile()
             {
-                SetRestoreFlag(true);
-                MessageBox.Show("The application will start in restore mode on the next startup.", "Restore Mode Set", MessageBoxButton.OK, MessageBoxImage.Information);
+                var openFileDialog = new Microsoft.Win32.OpenFileDialog
+                {
+                    Filter = "BAK files (*.bak)|*.bak",
+                    Title = "Select a .bak file"
+                };
+                if (openFileDialog.ShowDialog() == true)
+                {
+                    // User has chosen a file
+                    string selectedFilePath = openFileDialog.FileName;
+                    //// Get the selected file name and display in a message
+                    //MessageBox.Show($"Selected database backup filepath is {selectedFilePath}");
+                    return selectedFilePath;
+                }
+                return null;
+            }
+
+            RestoreDatabase(SelectBackupFile());
+
+            //---------------------------------
+
+            //using (System.Windows.Forms.FolderBrowserDialog folderDialog = new System.Windows.Forms.FolderBrowserDialog())
+            //{
+            //    try
+            //    {
+            //        folderDialog.Description = "Select the backup to restore.";
+            //        if (folderDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            //        {
+            //            string backupPath = folderDialog.SelectedPath;
+            //            string backupFilePath = Path.Combine(backupPath, "ProductDataBackup.bak");
+            //            string connString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\ProductData.mdf;Integrated Security=True";
+            //            string mdfFilePath = Path.Combine(backupPath, $"ProductData.mdf");
+            //            string ldfFilePath = Path.Combine(backupPath, $"ProductData_log.ldf");
+            //            LogErrorToFile("Calling CreateBAKFile for ProductData");
+            //            LogErrorToFile("backupFilePath = " + backupFilePath);
+            //            CreateBAKFile(backupFilePath, connString, mdfFilePath, ldfFilePath);
+            //        }
+            //    }
+            //    catch (Exception ex)
+            //    {
+            //        LogErrorToFile(ex.Message);
+            //        MessageBox.Show($"See log file. An error occurred: {ex.Message}");
+            //    }
+            //}
+
+
+            //    var result = MessageBox.Show("Do you want to start the restore process the next time you start the application? Selecting 'Yes' will set the application to restore mode on next startup.",
+            //"Restore on Next Startup", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            //    if (result == MessageBoxResult.Yes)
+            //    {
+            //        SetRestoreFlag(true);
+            //        MessageBox.Show("The application will start in restore mode on the next startup.", "Restore Mode Set", MessageBoxButton.OK, MessageBoxImage.Information);
+            //    }
+        }
+
+        private void RestoreDatabase(string backupFilePath)
+        {
+            if (string.IsNullOrEmpty(backupFilePath))
+            {
+                MessageBox.Show("Backup file path is not valid.");
+                return;
+            }
+            else
+            {
+                MessageBox.Show($"Selected database backup filepath is {backupFilePath}");
+            }
+
+            string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;Integrated Security=True"; // Adjusted connection string
+            string databaseName = "ProductData"; // Use logical database name
+
+            try
+            {
+                using (SqlConnection con = new SqlConnection(connectionString))
+                {
+                    con.Open();
+                    string alter1 = $"ALTER DATABASE [{databaseName}] SET SINGLE_USER WITH ROLLBACK IMMEDIATE";
+                    using (SqlCommand cmd1 = new SqlCommand(alter1, con))
+                    {
+                        cmd1.ExecuteNonQuery();
+                    }
+
+                    // Assuming 'YourLogicalDataName' and 'YourLogicalLogName' are obtained from RESTORE FILELISTONLY
+                    string restoreQuery = $@"RESTORE DATABASE [{databaseName}] FROM DISK = '{backupFilePath}' WITH MOVE 'YourLogicalDataName' TO 'ProductData.mdf', MOVE 'YourLogicalLogName' TO 'ProductData_log.ldf', NOUNLOAD, REPLACE, STATS = 10";
+                    using (SqlCommand cmd2 = new SqlCommand(restoreQuery, con))
+                    {
+                        cmd2.ExecuteNonQuery();
+                    }
+
+                    string alter2 = $"ALTER DATABASE [{databaseName}] SET MULTI_USER";
+                    using (SqlCommand cmd3 = new SqlCommand(alter2, con))
+                    {
+                        cmd3.ExecuteNonQuery();
+                    }
+
+                    MessageBox.Show("Database restored successfully.");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"An error occurred while restoring the database: {ex.Message}");
+                // Assuming LogErrorToFile is a method you've defined elsewhere
+                LogErrorToFile(ex.Message);
             }
         }
+
 
         private void SetRestoreFlag(bool shouldRestore)
         {

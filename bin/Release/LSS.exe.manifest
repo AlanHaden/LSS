@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <asmv1:assembly xsi:schemaLocation="urn:schemas-microsoft-com:asm.v1 assembly.adaptive.xsd" manifestVersion="1.0" xmlns:asmv1="urn:schemas-microsoft-com:asm.v1" xmlns="urn:schemas-microsoft-com:asm.v2" xmlns:asmv2="urn:schemas-microsoft-com:asm.v2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:co.v1="urn:schemas-microsoft-com:clickonce.v1" xmlns:asmv3="urn:schemas-microsoft-com:asm.v3" xmlns:dsig="http://www.w3.org/2000/09/xmldsig#" xmlns:co.v2="urn:schemas-microsoft-com:clickonce.v2">
-  <asmv1:assemblyIdentity name="LSS.exe" version="1.0.0.58" publicKeyToken="0000000000000000" language="neutral" processorArchitecture="msil" type="win32" />
+  <asmv1:assemblyIdentity name="LSS.exe" version="1.0.0.65" publicKeyToken="0000000000000000" language="neutral" processorArchitecture="msil" type="win32" />
   <description asmv2:iconFile="Icon.ico" xmlns="urn:schemas-microsoft-com:asm.v1" />
   <application />
   <entryPoint>
-    <assemblyIdentity name="LSS" version="1.0.0.5" language="neutral" processorArchitecture="msil" />
+    <assemblyIdentity name="LSS" version="1.0.0.8" language="neutral" processorArchitecture="msil" />
     <commandLine file="LSS.exe" parameters="" />
   </entryPoint>
   <trustInfo>
@@ -55,14 +55,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="LSS.exe" size="1438672">
-      <assemblyIdentity name="LSS" version="1.0.0.5" language="neutral" processorArchitecture="msil" />
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="LSS.exe" size="1223632">
+      <assemblyIdentity name="LSS" version="1.0.0.8" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>3CX7fnfCcp7cki+e3yfPo8V4fvXUUbacKlHTfXeG/s0=</dsig:DigestValue>
+        <dsig:DigestValue>4Inci/GiLpTHus9U4K0PSz8KJ0T5QC0ibX3EDVJCYwg=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -258,6 +258,15 @@
       </hash>
     </dependentAssembly>
   </dependency>
+  <file name="BlankTC.pdf" size="215889">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>5IdZJ/T3txigfe9j7SGOM0K0H0v9+1Wmtx5D7EMe9wo=</dsig:DigestValue>
+    </hash>
+  </file>
   <file name="EngineersData.mdf" size="8388608" writeableType="applicationData">
     <hash>
       <dsig:Transforms>

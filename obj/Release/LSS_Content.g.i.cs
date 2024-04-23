@@ -9,6 +9,7 @@
 //------------------------------------------------------------------------------
 
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("splashscreen.png")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("blanktc.pdf")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("engineersdata.mdf")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("engineersdata_log.ldf")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("icon.ico")]

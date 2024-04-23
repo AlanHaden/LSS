@@ -125,10 +125,19 @@
             <TextBlock x:Name="mingdt10" Grid.Column="3" Grid.Row="10" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White"/>
             <TextBlock x:Name="maxgdt10" Grid.Column="4" Grid.Row="10" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White"/>
         </Grid>
-        <Button x:Name="btnCreatePDF" Grid.Row="2" Content="Create PDF&#x0a;&amp;&#x0a;Save Data" Width="100" Height="100" FontWeight="Bold" FontSize="14" VerticalAlignment="Bottom" Click="btnCreatePDF_Click"
+        <Viewbox MaxHeight="100" MaxWidth="100" Grid.Row="2">
+            <Button x:Name="btnCreatePDF" Content="Create PDF&#x0a;&amp;&#x0a;Save Data" FontSize="14" VerticalAlignment="Bottom" Click="btnCreatePDF_Click"
         HorizontalContentAlignment="Center" VerticalContentAlignment="Center" />
-        <Button x:Name="btnLoad" Grid.Row="3" Content="Load&#x0a;Certificate" HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="100" Height="70" FontWeight="Bold" FontSize="14" Click="btnLoad_Click" Margin="0,5,0,0"/>
-        <Button x:Name="updateBtn" Grid.Row="4" Content="Check for updates" HorizontalAlignment="Center" VerticalAlignment="Bottom" Click="updateBtn_Click" Margin="0,5,0,0" />
+        </Viewbox>
+
+        <Viewbox MaxHeight="70" MaxWidth="100" Grid.Row="3">
+            <Button x:Name="btnLoad" Content="Load&#x0a;Certificate" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontSize="14" Click="btnLoad_Click" Margin="0,5,0,0"/>
+        </Viewbox>
+
+        <Viewbox MaxHeight="70" MaxWidth="100" Grid.Row="4">
+            <Button x:Name="updateBtn" Content="Check for updates" HorizontalAlignment="Center" VerticalAlignment="Bottom" Click="updateBtn_Click" Margin="0,5,0,0" />
+        </Viewbox>
+
         <Label x:Name="versionLbl" Grid.Row="5" Content="Version: " Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontSize="10" Foreground="White"/>
         <Grid x:Name="CoDataBar" Grid.Column="1" HorizontalAlignment="Stretch">
             <Rectangle Height="20" Fill="#FFFF1200" VerticalAlignment="Top" />
@@ -660,7 +669,7 @@
                                     <TextBlock Canvas.Left="50" Text="prevention etc. On page 225, chapter 56, of BS7671 there is a non-exhaustive list of many such systems." Canvas.Top="594" Height="15" Width="416" FontSize="9" HorizontalAlignment="Left" VerticalAlignment="Center"/>
 
                                     <TextBlock Canvas.Left="50" Text="(iii) (To provide protection against significant financial loss and/or loss of data)" Canvas.Top="608" Height="15" Width="336" FontSize="9" HorizontalAlignment="Left" VerticalAlignment="Center" FontWeight="Bold"/>
-                                    <TextBlock Canvas.Left="50" Text="All mains voltage surge protection units shall be installed to regulation 534, and for DC PV 534.721." Canvas.Top="620" Height="15" Width="396" FontSize="9" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                                    <TextBlock Canvas.Left="50" Text="All mains voltage surge protection units shall be installed to regulation 534, and for DC PV 712.534." Canvas.Top="620" Height="15" Width="396" FontSize="9" HorizontalAlignment="Left" VerticalAlignment="Center"/>
                                     <TextBlock Canvas.Left="50" Text="Regular periodic testing and inspection of SPDs is of vital importance in order to maintain effective life safety measures against shock, fire or explosion and to prevent damage to electrical systems, sensitive electronic systems and protect" Canvas.Top="632" Height="15" Width="940" FontSize="9" HorizontalAlignment="Left" VerticalAlignment="Center"/>
                                     <TextBlock Canvas.Left="50" Text="critical operational services from interruption/loss. This is a “shall do” action under the IET wiring regulation BS7671 17th &amp; 18th Editions. It is also a required “shall do” action of the lightning protection standard BSEN 62305." Canvas.Top="644" Height="15" Width="887" FontSize="9" HorizontalAlignment="Left" VerticalAlignment="Center"/>
                                     <TextBlock Canvas.Left="50" Text="The relevant regulations for inspection and testing under BS7671 18th Edition IET wiring regulations are 534.4.1.1, 642, 643.10, 651.2 (v, vi), note 1, 651.4, 652.1 &amp; annex 6 page 516. Also see BSEN 62305-3 standard E.7 and BSEN 62305-4" Canvas.Top="656" Height="15" Width="936" FontSize="9" HorizontalAlignment="Left" VerticalAlignment="Center"/>
